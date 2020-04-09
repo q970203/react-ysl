@@ -11,7 +11,8 @@ export default class Cart extends React.Component{
  state={
    checkAll:true,
    hasChecked:[],
-   list:[]
+   list:[],
+   total:0
  }
   constructor() {
    super();
@@ -31,6 +32,12 @@ export default class Cart extends React.Component{
    )
  }
 
+ static getDerivedStateFromProps(nextProps, nextState){
+   let arr=[]
+   nextState.hasChecked.map(item=>item.checked?arr.push(item.price*item.num):arr.push(0))
+   return   {total:eval(arr.join('+'))}
+ }
+
   delete=(_id,index)=>{
     console.log("data",_id)
     this.axios({
@@ -41,8 +48,10 @@ export default class Cart extends React.Component{
         console.log(res)
         if(res.data.err===0){
           this.state.list.splice(index,1)
+
           this.setState({
-            list:this.state.list
+            list:this.state.list,
+            hasChecked:this.state.hasChecked.filter(item=>item._id!==_id)
           })
           console.log('resss',this)
         }else {
@@ -52,11 +61,22 @@ export default class Cart extends React.Component{
     )
   }
 
+  change=(data,_id)=>{
+    this.state.hasChecked.map(item=>{
+      if (item._id==_id){
+        return item.num=data
+      }
+    })
+    this.setState({
+      hasChecked:this.state.hasChecked
+    })
+  }
+
   getGoodsChecked=(data,index,item)=>{
-   console.log(index,data,item)
-    data?
-      this.state.hasChecked.unshift(item):
-      this.state.hasChecked.shift(item)
+    this.state.list[index].checked=data
+    this.setState({
+      list:this.state.list
+    })
     if(this.state.hasChecked.length===this.state.list.length){
       this.setState({
         checkAll:true
@@ -66,9 +86,7 @@ export default class Cart extends React.Component{
         checkAll:false
       })
     }
-    this.setState({
-      hasChecked:this.state.hasChecked
-    })
+
   }
 
   allChecked=()=>{
@@ -82,14 +100,13 @@ export default class Cart extends React.Component{
        this.state.list.map(item=>item.checked=false)
        this.setState({
          list:this.state.list,
-         hasChecked:[]
        })
      }
 
     }
 
   render() {
-   let {checkAll,list} = this.state
+   let {checkAll,list,total} = this.state
     return(
       <div>
         <Link to={'/home'} style={{ margin:"-1.41rem -0.3rem 0", display:"block",borderBottom:"1px solid #333"}}><img style={{width:"40%",margin:"0.3rem auto",display:"block"}} src={logo} alt=""/></Link>
@@ -110,6 +127,7 @@ export default class Cart extends React.Component{
             {
               list.map((item,index)=>(
                 <CartGoods
+                  change={(data)=>{this.change(data,item._id)}}
                   check={(data)=>{this.getGoodsChecked(data,index,item)}}
                   key={index}
                   checked={item.checked}
@@ -122,13 +140,13 @@ export default class Cart extends React.Component{
           </div>
           <div className={styles.sum}>
             <h2>订单总价</h2>
-            <div>商品价格 <span>￥{0}</span> </div>
+            <div>商品价格 <span>￥{total}</span> </div>
             <div>价格优惠 <span>￥{0}</span> </div>
             <div>运费 <span>￥{0}</span> </div>
           </div>
-         <h2 style={{lineHeight:"1rem",backgroundColor:"#fff",fontWeight:700}}>总价 <span style={{float:"right"}} >￥{0}</span></h2>
+         <h2 style={{lineHeight:"1rem",backgroundColor:"#fff",fontWeight:700}}>总价 <span style={{float:"right"}} >￥{total}</span></h2>
           <div className={styles.settlement}>
-            <span>总价：￥{0}</span>
+            <span>总价：￥{total}</span>
             <Button type={"other"} style={{width:"30%",border:"1px solid #fff"}} clickHandler={()=>{this.props.history.push('/home')}}>继续购物</Button>
             <Button type={"other"} style={{width:"30%",border:"1px solid #999",background:"#999",marginLeft:"3px",marginRight:"3px"}}>立即结算</Button>
 

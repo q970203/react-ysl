@@ -11,29 +11,27 @@ class List extends React.Component{
   constructor(props) {
     super(props);
     // this.state.list=[]
-    this.axios({
-      url:`/api/goods/${props.match.params._type}`
-    }).then(
-      res=>{
-        this.setState({
-          list:res.data.data
-        })
-      }
-    )
+
+      this.axios({
+        url:`/api/goods/${props.match.params._type}`
+      }).then(
+        res=>{
+          this.setState({
+            list:res.data.data
+          })
+        }
+      )
+
   }
-  // componentDidUpdate(prevProps, prevState, snapshot) {
-  //  this.state.list=[]
-  //   this.axios({
-  //     url:`/api/goods/${this.props.match.params._type}`
-  //   }).then(
-  //     res=>{
-  //       this.state.list=[];
-  //       this.setState({
-  //         list:res.data.data
-  //       })
-  //     }
-  //   )
-  // }
+// componentDidMount() {
+//   let data=qs.parse(this.props.location.search,{ignoreQueryPrefix:true}).data
+//   console.log("zgdx",data)
+//   if (data){
+//     this.setState({
+//       list:data
+//     })
+//   }
+// }
 
   render() {
     let {list} = this.state

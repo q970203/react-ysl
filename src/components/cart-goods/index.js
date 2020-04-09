@@ -7,12 +7,20 @@ import {Link} from "react-router-dom";
 export default class CartGoods extends React.Component{
   state={
     checked:"",
+    checkdeNum:1,
   }
 constructor(props) {
   super(props);
     this.state.checked=props.checked
 }
 
+  static getDerivedStateFromProps(nextProps, nextState){
+    return {checked:nextProps.checked}
+  }
+  changeNum=(data)=>{
+      this.state.checkdeNum=data
+      this.props.change(this.state.checkdeNum)
+  }
 
   beCheck=()=>{
     this.setState({
@@ -37,7 +45,7 @@ constructor(props) {
             {data.optText}
           </div>
           <div style={{display:"flex",justifyContent:"space-between",position:"relative"}}>
-            <GoodsOptNum style={{width:"50%"}} num={5} checked={data.num} />
+            <GoodsOptNum style={{width:"50%"}} num={5} checked={data.num} changeNum={this.changeNum}/>
             <span style={{display:"block",position:"absolute",top:"50%",transform: "translateY(-50%)",right:0,fontSize:"14px",fontWeight:600}}>￥{data.price}</span>
           </div>
           <div>

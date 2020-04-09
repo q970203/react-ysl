@@ -14,11 +14,13 @@ import Reg from "../pages/Reg";
 import NoPage from "../pages/NoPage";
 
 import pubsub from 'pubsub-js'
+import Search from "../components/search";
 
 export default class Default extends React.Component{
   state={
     bHeader:true,
     bFoot:true
+
   }
   constructor() {
     super();

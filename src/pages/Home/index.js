@@ -3,6 +3,7 @@ import QSwiper from "../../components/swiper";
 import Banner from "../../components/banner";
 import Cell from "../../components/cell";
 import BannerCell from '../../components/banner-cell'
+import Search from '../../components/search'
 import './home.css'
 import {NavLink,withRouter} from "react-router-dom";
 
@@ -142,8 +143,6 @@ export default class Home extends React.Component{
   }
   render() {
     let  {foundCZ,currentIndex,banner,currentApiname} = this.state;
-    console.log(foundCZ)
-    console.log("banner",typeof (this.state.banner))
     return(
       <div>
         {/*轮播图*/}
