@@ -1,0 +1,26 @@
+{	"err":0,
+	"data":[
+			{
+				"price":"169",
+				"desc":"海量优质内容，讲故事更专业",
+				"title":"米兔智能故事机",
+				"img":"/1acf1167-8a6d-cefb-7805-628f78a6aa33.jpg",
+				"opt1":"标配",
+				"opt2":"白色",
+				"num":1,
+				"checked":true
+			},
+			{
+				"price":"1200.00",
+				"desc":"6400万旗舰级全场景四摄 / 前置2000万 AI美颜相机",
+				"title":"小米10 Pro",
+				"img":"pms_1567056763.45938146.png",
+				"opt1":"冰翡翠",
+				"opt2":"8+128GB",
+				"num":1,
+				"checked":true
+			}
+		],
+		"total":0,
+		"allChecked":false
+}

@@ -1,0 +1,30 @@
+.cartgoods{display: flex;position: relative;padding: 0.3rem 0}
+.cartgoods>span{
+    display: block;
+    width: 15px;
+    height: 15px;
+    box-sizing: border-box;
+    border: 1px solid #333;
+    vertical-align: middle;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+.cartgoods>img{
+    display: block;
+    vertical-align: middle;
+    width: 1.71rem;
+    height: 2.25rem;
+    margin: 0 0.4rem;
+}
+.cartgoods>div{flex: 1}
+.cartgoods>div>div{margin: 0.2rem 0}
+.cartgoods>div>div>a{text-decoration: underline}
+.goodsopt>span{
+    display: inline-block;
+    width: 15px;
+    height: 15px;
+    background: #fff;
+    margin-right: 0.3rem;
+    vertical-align: middle;
+}

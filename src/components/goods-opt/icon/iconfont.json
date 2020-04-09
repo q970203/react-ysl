@@ -1,0 +1,23 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "11265755",
+      "name": "向下",
+      "font_class": "down2",
+      "unicode": "e504",
+      "unicode_decimal": 58628
+    },
+    {
+      "icon_id": "12037697",
+      "name": "向下",
+      "font_class": "arrow-down",
+      "unicode": "e501",
+      "unicode_decimal": 58625
+    }
+  ]
+}

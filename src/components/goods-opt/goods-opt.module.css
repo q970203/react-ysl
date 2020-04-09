@@ -1,0 +1,64 @@
+.goodsopt__box{position: relative}
+.goodsopt{
+    border: 1px solid #9e9a95;
+    padding: 0.15rem;
+    box-sizing: border-box;
+    position: relative;
+    height: 0.68rem;
+}
+/*.goodsopt>span{*/
+
+/*    white-space: normal;*/
+/*    overflow: hidden;*/
+/*    !*-webkit-line-clamp: 2;*!*/
+/*    text-overflow: ellipsis;*/
+/*}*/
+.clear:after{ display:block; content:''; clear:both;}
+.goodsopt__color{
+    display: inline-block;
+    width: 0.34rem;
+    height: 0.34rem;
+    /*border: 1px solid;*/
+    margin-right: 15px;
+    vertical-align: middle;
+    /*background: blanchedalmond;*/
+}
+.goodsopt__text{
+/*    !*word-wrap: break-word;*!*/
+/*    !*display: -webkit-box;*!*/
+    white-space: nowrap;
+    width: 60%;
+    position: absolute;
+    overflow: hidden;
+    /*-webkit-line-clamp: 2;*/
+    text-overflow: ellipsis;
+    /*-webkit-box-orient: vertical;*/
+}
+.goodsopt__arrow{
+    position: absolute;
+    top:0;
+    right: 0.23rem;
+    line-height:0.68rem;
+    font-size: 12px !important;
+    font-weight: 900;
+}
+.goodsopt__opt{
+    box-sizing: border-box;
+    border: 1px solid #9e9a95;
+    width: 100%;
+    padding:0 0.15rem;
+    background-color: #ffffff;
+    z-index: 1;
+    position: absolute;
+    top:0.68rem;
+}
+.goodsopt__opt a{
+    width: 100%;
+    display: block;
+    height:0.68rem;
+    line-height: 0.68rem;
+    white-space: normal;
+    overflow: hidden;
+    /*-webkit-line-clamp: 2;*/
+    text-overflow: ellipsis;
+}

@@ -1,0 +1,22 @@
+.cart{
+    padding: 0 0.3rem;
+}
+.cart>h2{font-weight: normal;height:1rem;line-height: 1rem}
+.checkedAll{font-size: 14px; color: #fff;box-sizing: border-box; height: 0.9rem;margin: 0 -0.3rem;padding:0.3rem; background: #333333}
+.checkedAll span{display: inline-block;vertical-align: middle;box-sizing: border-box;}
+.checkedAll>span{ border: 1px solid #fff; width: 15px;height: 15px;margin-right: 0.2rem}
+.checkedAll>span>span{ border: 1px solid #333;width: 13px;height: 13px;background: #fff;margin: auto;margin-top: -10px}
+.sum{
+    padding: 0.3rem 0 0.4rem;
+    border-top: 1px solid #9e9a95;
+    border-bottom: 1px solid #9e9a95;
+}
+.sum>h2{font-size: 18px;font-weight: normal;margin-bottom: 0.2rem}
+.sum>div{
+    height: 0.5rem;
+    line-height: 0.5rem;
+    font-size: 14px;
+}
+.sum>div>span{float: right}
+.settlement{z-index: 2; height: 1rem; margin:0 -0.3rem; color: #fff; background-color: #333; width: 100%; position: fixed;bottom: 0;display: flex;justify-content: space-between}
+.settlement>span{display: block;flex: 1;line-height: 1rem}

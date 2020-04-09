@@ -1,0 +1,17 @@
+
+.banner{position: relative;overflow: hidden; z-index: 1;}
+.banner li{position: relative;float: left}
+/*.banner img{height: 5.55rem}*/
+.banner img{width: 100%}
+
+.swiper__circle{text-align: center}
+.banner ol {
+    display: inline-block;
+    margin-top: 5px;
+    width:0.25rem;
+    height:0.25rem;
+    background:#919191;
+    /*float:left; */
+    border-radius:50%;
+    margin-right:0.08rem;}
+.banner ol.active{ background:#333;}

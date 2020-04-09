@@ -1,0 +1,17 @@
+
+.other{
+    margin-top: 0.5rem;
+    text-align: center;
+}
+.other>p{margin: 0.4rem 0 0.2rem;text-align: left}
+.other ul{height: 0.7rem}
+.other li{float: left;margin-right: 0.4rem}
+.other li span{
+    display: block;
+    border: 1px solid #ebebeb;
+    width: 0.68rem;
+    height: 0.68rem;
+    text-align: center;
+    margin-bottom: 3px;
+}
+.other li span i{font-size: 0.5rem;text-align: center;line-height: 0.68rem;}

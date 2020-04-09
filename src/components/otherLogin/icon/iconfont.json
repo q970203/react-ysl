@@ -1,0 +1,30 @@
+{
+  "id": "",
+  "name": "",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "2006107",
+      "name": "qq",
+      "font_class": "qq-copy",
+      "unicode": "e566",
+      "unicode_decimal": 58726
+    },
+    {
+      "icon_id": "4335488",
+      "name": "新浪",
+      "font_class": "--",
+      "unicode": "e606",
+      "unicode_decimal": 58886
+    },
+    {
+      "icon_id": "12708877",
+      "name": "支付宝",
+      "font_class": "-zhifubao",
+      "unicode": "e610",
+      "unicode_decimal": 58896
+    }
+  ]
+}

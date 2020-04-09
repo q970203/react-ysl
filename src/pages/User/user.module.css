@@ -1,0 +1,8 @@
+.user{padding: 0.3rem}
+.user>h2{
+    font-weight: 300;
+    font-size: 16px;
+}
+.user>h2>span{font-weight: 700;padding: 0 0.3rem}
+.user>h2>a{text-decoration: underline;font-size: 12px;float: right}
+.user__nav{margin: 0.2rem -0.3rem 0.6rem;padding:0 0.3rem ;border-bottom: 1px solid #e5e5e5;border-top:1px solid #e5e5e5;}

@@ -1,0 +1,61 @@
+.cell{position: relative; display: inline-block; padding:0 10px; text-align: center; width: 50%;box-sizing: border-box;}
+.cell__img{
+    margin: auto;
+    width: 2.4rem;
+    height: 2.6rem;
+}
+.cell__img>img{width: 100%}
+.cell__opt>span{
+    display: inline-block;
+    width: 0.2rem;
+    height: 0.2rem;
+    margin: 3px;
+    background-color: #61dafb;
+}
+.cell__enTitle,.cell__title{
+    font-size: 12px;
+    font-weight: 600;
+    height:30px;
+    line-height: 15px;
+    text-align: center;
+    word-wrap: break-word;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 2;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+}
+.cell__des{
+    color: #999;
+    font-size: 12px;
+    text-align: center;
+    margin: 0.1rem auto;
+}
+.cell__opt{
+    width: 2rem;
+    overflow: hidden;
+    height: 0.3rem;
+    margin: 5px auto 0;
+}
+.cell__start--black{
+    width: 2.52rem;
+    margin:0 auto 10px;
+    height: 0.4rem;
+    background: url("../../assets/img/icon_2x.png") no-repeat -94px -380px;
+}
+.cell__start--gray{
+    width: 2.3rem;
+    margin:0 auto 10px;
+    height: 0.4rem;
+    background: url("../../assets/img/icon_2x.png") no-repeat -353px -320px;
+}
+.cell__price{text-align: center; font-size: 12px;font-weight: 700}
+.cell__tag{
+    position: absolute;
+    left: 0;
+    top: 0;
+    padding: 2px 5px;
+    background: #333333;
+    color: #fff;
+    font-size: 12px;
+}
