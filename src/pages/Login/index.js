@@ -4,8 +4,11 @@ import Input from "../../components/input";
 import Button from '../../components/button';
 import OtherLogin from '../../components/otherLogin'
 import qs from 'qs'
+import {inject,observer} from "mobx-react";
 
-export default class Login extends React.Component{
+@inject("user")
+@observer
+ class Login extends React.Component{
   state={
     userTel:"",
     password:"",
@@ -17,33 +20,47 @@ export default class Login extends React.Component{
     })
   }
 
-  login=async ()=>{
+  login=()=>{
     let {userTel,password} = this.state
-    let res = await this.axios({
-      url:"/api/login",
-      method:"post",
-      data:{
-        tel:userTel,
-        password:password
-      }
-    })
-    if (res.data.err===0){
-      //更新同步localStrage
-      window.localStorage.setItem("user",qs.stringify(res.data));
-      //跳转到之前
-      let path = qs.parse(this.props.location.search,{ignoreQueryPrefix:true}).path;
+    let {checkUser} = this.props.user
+    checkUser({
+      collectionName:"login",
+      tel:userTel,
+      password
+    }).then(
+      res =>{
+        if (res.data.err===0){
+          console.log("登录",res.data.msg)
+          //更新同步localStrage
+          window.localStorage.setItem("user",qs.stringify(res.data));
+          //跳转到之前
+          let path = qs.parse(this.props.location.search,{ignoreQueryPrefix:true}).path;
 
-      if (path && !path.includes('/login')){
-        this.props.history.push({
-          pathname:qs.parse(this.props.location.search,{ignoreQueryPrefix:true}).path
-        })
-      } else {
-        this.props.history.push('/user')
+          if (path && !path.includes('/login')){
+            this.props.history.push({
+              pathname:qs.parse(this.props.location.search,{ignoreQueryPrefix:true}).path
+            })
+          } else {
+            this.props.history.push('/user')
+          }
+
+        } else {
+          this.setState({mag:res.data.msg})
+        }
       }
 
-    } else {
-      this.setState({mag:res.data.msg})
-    }
+
+    )
+    // let res = await this.axios({
+    //   url:"/api/login",
+    //   method:"post",
+    //   data:{
+    //     tel:userTel,
+    //     password:password
+    //   }
+    // })
+
+
       // .then(
       // res=>{
       //   this.setState({msg:res.data.msg})
@@ -88,3 +105,5 @@ export default class Login extends React.Component{
     )
   }
 }
+
+export default Login

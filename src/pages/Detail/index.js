@@ -5,16 +5,18 @@ import Button from '../../components/button'
 import {GoodsOpt,GoodsOptNum} from '../../components/goods-opt'
 import styles from './detail.module.css'
 import qs from 'qs'
-
-export default class Detail extends React.Component{
+import {inject,observer} from "mobx-react";
+@inject('goods')
+@observer
+class Detail extends React.Component{
   state={
     checkedServer:false,
-    data:{
-      // maxNum:5
-    },
-    cartgoods:{
-
-    }
+    // data:{
+    //   // maxNum:5
+    // },
+    // cartgoods:{
+    //
+    // }
 
   }
 
@@ -22,16 +24,18 @@ export default class Detail extends React.Component{
     super(props);
     let apiname = qs.parse(props.location.search,{ignoreQueryPrefix:true}).apiname;
     let _id = props.match.params._id
-    this.axios({
-      url:`/api/goods/${apiname}/${_id}`
-    }).then(
-      res=>{
-        this.setState({
-          data:res.data.data
-        })
-        console.log("fxxn",this.state.data)
-      }
-    )
+    let {update} = props.goods
+    update({collectionName:apiname,_id:_id})
+    // this.axios({
+    //   url:`/api/goods/${apiname}/${_id}`
+    // }).then(
+    //   res=>{
+    //     this.setState({
+    //       data:res.data.data
+    //     })
+    //     console.log("fxxn",this.state.data)
+    //   }
+    // )
   }
 
   renderOptColor=(optColor)=>{
@@ -65,7 +69,7 @@ export default class Detail extends React.Component{
   }
 
   renderPage=({title,price,banner,tag,des,info,optText,optColor,optImg,maxNum,detailImg,type,time})=>{
-    let {checkedServer,data} = this.state
+    let {checkedServer} = this.state
     return (
     <div className={styles.detail}>
       <Banner title={title}/>
@@ -113,7 +117,7 @@ export default class Detail extends React.Component{
   )}
 
   addCart=()=>{
-    let {title,price,optImg} = this.state.data
+    let {title,price,optImg} = this.props.goods.detail
     console.log ("vv", {
       title:title,
       price:price,
@@ -147,10 +151,12 @@ export default class Detail extends React.Component{
 
   render() {
     // let {checkedServer,data}=this.state
-    if(this.state.data.title){
-      return this.renderPage(this.state.data)
+    if(this.props.goods.detail.title){
+      return this.renderPage(this.props.goods.detail)
     }else {
       return null
     }
   }
 }
+
+export default Detail

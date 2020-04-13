@@ -1,48 +1,60 @@
 import React from "react";
 import Header from "./header/header";
 import Footer from "./footer";
+import asyncComponent from '../plugins/asyncComponent'
 
 import {Switch,Route,Redirect} from 'react-router-dom'
+const Home = asyncComponent(()=>import("../pages/Home"))
+// import Home from '../pages/Home'
+// import Detail from "../pages/Detail";
+const Detail = asyncComponent(()=>import("../pages/Detail"))
 
-import Home from '../pages/Home'
-import Detail from "../pages/Detail";
 import Login from "../pages/Login";
 import User from "../pages/User";
-import Cart from "../pages/Cart";
-import List from "../pages/List";
+// import Cart from "../pages/Cart";
+const Cart = asyncComponent(()=>import("../pages/Cart"))
+
+// import List from "../pages/List";
+const List = asyncComponent(()=>import("../pages/List"))
+
 import Reg from "../pages/Reg";
 import NoPage from "../pages/NoPage";
 
 import pubsub from 'pubsub-js'
 import Search from "../components/search";
 
-export default class Default extends React.Component{
-  state={
-    bHeader:true,
-    bFoot:true
+import {observer,inject} from "mobx-react";
 
+@inject('global')
+@observer
+class Default extends React.Component{
+  state={
+    // bHeader:true,
+    // bFoot:true
   }
   constructor() {
     super();
   }
   static getDerivedStateFromProps(nextProps,nextState){
-    console.log(nextProps)
-    console.log(nextState)
 
     let path = nextProps.location.pathname;
-    console.log(path)
-
+    let {updateHeader,updateFoot} = nextProps.global
     if(/home|detail|list|login|reg|user/.test(path)){
-      return{
-        bHeader:true,
-    bFoot:true
-      }
+      updateHeader(true);
+      updateFoot(true)
+      // return{
+      //
+      //   bHeader:true,
+      //   bFoot:true
+      // }
     }
     if(/cart/.test(path)){
-      return{
-        bHeader:false,
-        bFoot:true
-      }
+      updateHeader(false);
+      updateFoot(true)
+      // return{
+      //   bHeader:false,
+      //   bFoot:true
+      // }
     }
     // if(!//.test(path)){
     //   return{
@@ -50,12 +62,13 @@ export default class Default extends React.Component{
     // bFoot:false
     //   }
     // }
+    return null
   }
   render() {
-    let {bHeader} = this.state
+    let {bHeader} = this.props.global
     return(
       <div>
-        {bHeader && <Header/>}
+        {bHeader && <Header history={this.props.history}/>}
         <Switch>
           <Route path={'/home'} component={Home}/>
           <Route path={'/cart'} component={Cart}/>
@@ -74,3 +87,5 @@ export default class Default extends React.Component{
     )
   }
 }
+
+export default Default

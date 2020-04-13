@@ -83,7 +83,7 @@ class GoodsOptNum extends React.Component{
       arrow:!this.state.arrow,
       optShow:!this.state.optShow
     })
-    this.props.changeNum(item)
+    // this.props.changeNum(item)
   }
   componentDidMount() {
     for(let i=1;i<=this.props.num;i++){

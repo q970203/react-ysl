@@ -5,24 +5,32 @@ import Nav from '../../components/nav'
 import {history} from 'react-router-dom'
 
 import qs from 'qs'
-export default class User extends React.Component{
-  state={user:null}
+
+import {inject,observer} from "mobx-react";
+
+@inject("user")
+@observer
+class User extends React.Component{
+  // state={user:null}
   constructor() {
     super();
-    let user=qs.parse(window.localStorage.getItem('user')).data
-    this.state.user=user
+
+    // let user=qs.parse(window.localStorage.getItem('user')).data
+    // this.state.user=user
   }
   logout=()=>{
+    this.props.user.logout()
     window.localStorage.removeItem('user');
     this.props.history.push('/login')
   };
   render() {
-    let {user} = this.state
+    // let {user} = this.state
+    let {user} = this.props.user
     return(
       <div className={styles.user}>
         <Breadcrumb to={{pathname:"/user",text:"我的账户"}}/>
         <h2>欢迎
-          <span>{user.username}</span>
+          <span>{user?user.data.username:"用户名"}</span>
           <a onClick={this.logout}>退出</a>
         </h2>
         <div className={styles.user__nav}>
@@ -37,3 +45,5 @@ export default class User extends React.Component{
     )
   }
 }
+
+export default User

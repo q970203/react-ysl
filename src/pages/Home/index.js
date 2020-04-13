@@ -6,17 +6,21 @@ import BannerCell from '../../components/banner-cell'
 import Search from '../../components/search'
 import './home.css'
 import {NavLink,withRouter} from "react-router-dom";
+import {inject, observer} from "mobx-react";
 
-export default class Home extends React.Component{
+
+@inject('goods')
+@observer
+class Home extends React.Component{
 
   state={
     currentIndex:0,
-    currentApiname:"",
-    banner:[],
+    // currentApiname:"",
+    // banner:[],
     // makeup:[],
     // gifts:[],
     // fragrance:[],
-    foundCZ:[]
+    // foundCZ:[]
     // foundCZ:[
     //   {
     //     _id:'1',
@@ -78,19 +82,23 @@ export default class Home extends React.Component{
 
   componentDidMount() {
     //读取数据
-    this.axios.all([
-      this.axios({url:"/api/goods/banner"}),
-      this.axios({url:"/api/goods/makeup"})
-    ]).then(this.axios.spread((banner,makeup)=>{
-      console.log("goods",makeup)
-      this.setState({
-        banner:banner.data.data,
-        foundCZ:makeup.data.data,
-        currentApiname:'makeup'
-        // fragrance:goods.data.data.fragrance,
-        // gifts:goods.data.data.gifts,
-      })
-    }))
+    let {update} = this.props.goods
+    update({collectionName:"makeup",proName:"foundCZ"})
+    update({collectionName: "banner",proName: "banner"})
+
+    // this.axios.all([
+    //   this.axios({url:"/api/goods/banner"}),
+    //   this.axios({url:"/api/goods/makeup"})
+    // ]).then(this.axios.spread((banner,makeup)=>{
+    //   console.log("goods",makeup)
+    //   this.setState({
+    //     banner:banner.data.data,
+    //     foundCZ:makeup.data.data,
+    //     currentApiname:'makeup'
+    //     // fragrance:goods.data.data.fragrance,
+    //     // gifts:goods.data.data.gifts,
+    //   })
+    // }))
   }
 
   renderFoundCircle=()=>{
@@ -130,23 +138,28 @@ export default class Home extends React.Component{
   }
 
   toFound=(text)=>{
-    this.axios({
-      url:`/api/goods/${text}`
-    }).then(
-      res=>{
-        this.setState({
-          foundCZ:res.data.data,
-          currentApiname:text
-        })
-      }
-    )
+    let {update} = this.props.goods
+    update({collectionName:text,proName:"foundCZ"})
+    // this.axios({
+    //   url:`/api/goods/${text}`
+    // }).then(
+    //   res=>{
+    //     this.setState({
+    //       foundCZ:res.data.data,
+    //       currentApiname:text
+    //     })
+    //   }
+    // )
   }
   render() {
-    let  {foundCZ,currentIndex,banner,currentApiname} = this.state;
+    let {currentIndex} = this.state
+    let  {foundCZ,banner,currentApiname} = this.props.goods;
+    console.log('banner',banner)
+    console.log('foundCZ',foundCZ)
     return(
       <div>
         {/*轮播图*/}
-      {banner.length>0 && (<QSwiper
+      {banner && banner.length>0 && (<QSwiper
           data={banner}
           to={{pathname:"/detail",apiname:'banner'}}
         />)}
@@ -166,7 +179,7 @@ export default class Home extends React.Component{
               <li onClick={()=>{this.toFound("gifts")}} > 限定礼盒</li>
             </ul>
           </nav>
-          {foundCZ.length>0 && (<div className={"home__div--found"}>
+          {foundCZ && foundCZ.length>0 && (<div className={"home__div--found"}>
             <span
               className={"home__div--prev"}
               onClick={this.prev}
@@ -305,3 +318,4 @@ export default class Home extends React.Component{
     )
   }
 }
+export default Home

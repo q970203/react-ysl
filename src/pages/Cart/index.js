@@ -6,6 +6,7 @@ import Breadcrumb from '../../components/breadcrumb'
 import CartGoods from '../../components/cart-goods'
 import Button from "../../components/button";
 import {Link} from "react-router-dom";
+import {number} from "prop-types";
 
 export default class Cart extends React.Component{
  state={
@@ -21,6 +22,7 @@ export default class Cart extends React.Component{
    }).then(
      res=>{
        if(res.data.err===0){
+         res.data.data.map(item=>item.price-0)
          this.setState({
            list:res.data.data,
            hasChecked:res.data.data.filter(item=>item.checked)
@@ -48,7 +50,6 @@ export default class Cart extends React.Component{
         console.log(res)
         if(res.data.err===0){
           this.state.list.splice(index,1)
-
           this.setState({
             list:this.state.list,
             hasChecked:this.state.hasChecked.filter(item=>item._id!==_id)
@@ -74,8 +75,11 @@ export default class Cart extends React.Component{
 
   getGoodsChecked=(data,index,item)=>{
     this.state.list[index].checked=data
+    this.state.hasChecked=[]
+    this.state.list.map(item=>item.checked && this.state.hasChecked.push(item))
     this.setState({
-      list:this.state.list
+      list:this.state.list,
+      hasChecked:this.state.hasChecked
     })
     if(this.state.hasChecked.length===this.state.list.length){
       this.setState({
@@ -111,7 +115,7 @@ export default class Cart extends React.Component{
       <div>
         <Link to={'/home'} style={{ margin:"-1.41rem -0.3rem 0", display:"block",borderBottom:"1px solid #333"}}><img style={{width:"40%",margin:"0.3rem auto",display:"block"}} src={logo} alt=""/></Link>
 
-        {list.length>0 ?
+        {list ?
         <div className={styles.cart}>
 
 

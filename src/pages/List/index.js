@@ -3,6 +3,9 @@ import './list.css'
 import Cell from "../../components/cell";
 import Breadcrumb from "../../components/breadcrumb";
 import qs from 'qs'
+import {inject,observer} from "mobx-react";
+@inject('goods')
+@observer
 class List extends React.Component{
   state={
     list:[]
@@ -10,31 +13,38 @@ class List extends React.Component{
   }
   constructor(props) {
     super(props);
-    // this.state.list=[]
-
-      this.axios({
-        url:`/api/goods/${props.match.params._type}`
-      }).then(
-        res=>{
-          this.setState({
-            list:res.data.data
-          })
-        }
-      )
+    this.props.goods.list=[]
+      let {update,clear} = this.props.goods
+    clear('list')
+    update({collectionName:props.match.params._type,proName:'list'})
+      // this.axios({
+    //     url:`/api/goods/${props.match.params._type}`
+    //   }).then(
+    //     res=>{
+    //       this.setState({
+    //         list:res.data.data
+    //       })
+    //     }
+    //   )
 
   }
 // componentDidMount() {
-//   let data=qs.parse(this.props.location.search,{ignoreQueryPrefix:true}).data
-//   console.log("zgdx",data)
-//   if (data){
-//     this.setState({
-//       list:data
-//     })
-//   }
+//   // let data=qs.parse(this.props.location.search,{ignoreQueryPrefix:true}).data
+//   // console.log("zgdx",data)
+//   let {update,clear} = this.props.goods
+//     clear({proName:'list'})
+//     update({collectionName:this.props.match.params._type,proName:'list'})
+//   //
+//
+//   // if (data){
+//   //   this.setState({
+//   //     list:data
+//   //   })
+//   // }
 // }
 
   render() {
-    let {list} = this.state
+    let {list} = this.props.goods
     return(
       <div className={'list'}>
         <Breadcrumb to={{pathname:this.props.location.pathname,text:this.props.match.params._type}}></Breadcrumb>
@@ -42,7 +52,7 @@ class List extends React.Component{
           <div>筛选 <span>{" + "}</span></div>
           <div>排序按照 <span>{" + "}</span></div>
         </div>
-        {list.length>0 ? list.map(item=>(
+        {list ? list.map(item=>(
           <Cell
             key={item._id}
             data={item}

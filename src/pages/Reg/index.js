@@ -3,7 +3,11 @@ import styles from './reg.module.css'
 import Input from "../../components/input";
 import Button from '../../components/button';
 import OtherLogin from '../../components/otherLogin'
-export default class Reg extends React.Component{
+import {inject,observer} from "mobx-react";
+
+@inject("user")
+@observer
+class Reg extends React.Component{
   state={
     userTel:"",
     username:"",
@@ -17,14 +21,21 @@ export default class Reg extends React.Component{
   }
   reg=()=>{
     let {username,userTel,password}=this.state
-    this.axios({
-      url:"/api/reg",
-      method:"post",
-      data:{
-        tel:userTel,
-        username:username,
-        password:password
-      }
+    let {checkUser} = this.props.user
+    checkUser({
+      collectionName:'reg',
+      username,
+      tel:userTel,
+      password
+    // })
+    // this.axios({
+    //   url:"/api/reg",
+    //   method:"post",
+    //   data:{
+    //     tel:userTel,
+    //     username:username,
+    //     password:password
+    //   }
     }).then(
       res=>{
         console.log(res)
@@ -78,3 +89,5 @@ export default class Reg extends React.Component{
     )
   }
 }
+
+export default Reg
